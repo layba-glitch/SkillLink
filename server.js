@@ -3,7 +3,8 @@ const { Pool } = require('pg');
 const cors = require('cors');
 const app = express();
 const port = 3000; // Changed to match your error output
-
+import dotenv from "dotenv";
+dotenv.config();
 // Middleware - MUST come before routes
 app.use(cors({
   origin: 'http://localhost:3001', // Your React app's URL
@@ -15,11 +16,11 @@ console.log('Using connection to: aws-1-ap-southeast-1.pooler.supabase.com:6543'
 
 // Database connection pool
 const pool = new Pool({
-  user: 'postgres.etdzdeohetxhdrzvjeai',
-  host: 'aws-1-ap-southeast-1.pooler.supabase.com',
-  database: 'postgres',
-  password: 'layba56',
-  port: 6543,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
   ssl: { 
     rejectUnauthorized: false 
   },
